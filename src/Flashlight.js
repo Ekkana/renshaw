@@ -23,9 +23,9 @@ const Flashlight = () => {
         Array.from({ length: itemsAmount }, () => undefined).reduce(
             acc =>
                 acc.concat(
-                    (window.x = Math.floor(Math.random() * itemsRange)) === acc[acc.length - 1]
-                        ? (window.x + 1) % itemsRange
-                        : window.x
+                    (window.newElement = Math.floor(Math.random() * itemsRange)) === acc[acc.length - 1]
+                        ? (window.newElement + 1) % itemsRange
+                        : window.newElement
                 ),
             []
         );
