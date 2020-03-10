@@ -20,7 +20,15 @@ const Flashlight = () => {
     const itemsRangeArr = [9, 19, 29];
 
     const generateNumbers = () =>
-        Array.from({ length: itemsAmount }, () => Math.floor(Math.random() * itemsRange));
+        Array.from({ length: itemsAmount }, () => undefined).reduce(
+            acc =>
+                acc.concat(
+                    (window.x = Math.floor(Math.random() * itemsRange)) === acc[acc.length - 1]
+                        ? (window.x + 1) % itemsRange
+                        : window.x
+                ),
+            []
+        );
 
     const showNewNumber = el =>
         new Promise(resolve =>
@@ -41,10 +49,10 @@ const Flashlight = () => {
     return (
         <div>
             <div className="d-flex mb-5">
-                <Dropdown data={fontArr} value={fontSize} onSelect={setFontSize} />
-                <Dropdown data={speedArr} value={flashSpeed} onSelect={setFlashSpeed} />
-                <Dropdown data={amountArr} value={itemsAmount} onSelect={setItemsAmount} />
-                <Dropdown data={itemsRangeArr} value={itemsRange} onSelect={setItemsRange} />
+                <Dropdown title="Font size" data={fontArr} value={fontSize} onSelect={setFontSize} />
+                <Dropdown title="Speed" data={speedArr} value={flashSpeed} onSelect={setFlashSpeed} />
+                <Dropdown title="Item amount" data={amountArr} value={itemsAmount} onSelect={setItemsAmount} />
+                <Dropdown title="Item ramge" data={itemsRangeArr} value={itemsRange} onSelect={setItemsRange} />
             </div>
             <div style={{ fontSize }}>{currentNumber}</div>
 
