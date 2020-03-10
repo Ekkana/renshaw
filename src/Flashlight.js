@@ -6,18 +6,18 @@ import Dropdown from './Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Flashlight = () => {
-    const [fontSize, setFontSize] = useState(20);
-    const [flashSpeed, setFlashSpeed] = useState(300);
-    const [itemsAmount, setItemsAmount] = useState(6);
+    const [fontSize, setFontSize] = useState(46);
+    const [flashSpeed, setFlashSpeed] = useState(150);
+    const [itemsAmount, setItemsAmount] = useState(4);
     const [itemsRange, setItemsRange] = useState(9);
-    const [currentNumber, setCurrentumber] = useState(9);
+    const [currentValue, setCurrentValue] = useState('-');
 
     let itemsArray = [];
 
-    const fontArr = [14, 16, 18, 20, 22, 24, 26];
+    const fontArr = [14, 16, 18, 20, 22, 24, 26, 46];
     const speedArr = [400, 300, 250, 200, 150, 100, 90, 80, 70, 60, 50];
     const amountArr = [6, 8, 10, 12, 14, 16];
-    const itemsRangeArr = [9, 19, 29];
+    const itemsRangeArr = [9, 19, 29, 126];
 
     const generateNumbers = () =>
         Array.from({ length: itemsAmount }, () => undefined).reduce(
@@ -30,10 +30,10 @@ const Flashlight = () => {
             []
         );
 
-    const showNewNumber = el =>
+    const showNewValue = el =>
         new Promise(resolve =>
             setTimeout(() => {
-                resolve(setCurrentumber(el));
+                resolve(setCurrentValue(el));
             }, flashSpeed)
         );
 
@@ -42,8 +42,10 @@ const Flashlight = () => {
         console.log(itemsArray);
 
         for (const item of itemsArray) {
-            await showNewNumber(item);
+            await showNewValue(item);
         }
+
+        showNewValue('-');
     };
 
     return (
@@ -54,7 +56,7 @@ const Flashlight = () => {
                 <Dropdown title="Item amount" data={amountArr} value={itemsAmount} onSelect={setItemsAmount} />
                 <Dropdown title="Item ramge" data={itemsRangeArr} value={itemsRange} onSelect={setItemsRange} />
             </div>
-            <div style={{ fontSize }}>{currentNumber}</div>
+            <div style={{ fontSize }}>{currentValue}</div>
 
             <Button className="mt-5" onClick={startCount}>
                 Start count
